@@ -1,6 +1,7 @@
 const path = require("path");
 const BUILD_DIR = path.resolve( __dirname, "./public/build");
 const APP_DIR = path.resolve( __dirname, "./client");
+const Dotenv = require("dotenv-webpack");
 
 module.exports = {
     mode: "development",
@@ -50,5 +51,8 @@ module.exports = {
                 }
             }
         ]
-    }
+    },
+    plugins: [
+        new Dotenv()
+    ]
 }

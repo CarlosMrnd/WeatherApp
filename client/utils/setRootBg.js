@@ -1,10 +1,10 @@
-import cloudyBg from "../images/cloudBg.png";
+import cloudyBg from "../images/cloudBg.jpg";
 import dropyBg from "../images/dropBg.png";
-import fogdyBg from "../images/fogdyBg.png";
-import nightyBg from "../images/nightyBg.png";
-import rainyBg from "../images/rainBg.png";
-import snowyBg from "../images/snowBg.png";
-import sunnyBg from "../images/sunBg.png";
+import fogdyBg from "../images/fogdyBg.jpg";
+import nightyBg from "../images/nightyBg.svg";
+import rainyBg from "../images/rainBg.svg";
+import snowyBg from "../images/snowBg.svg";
+import sunnyBg from "../images/sunBg.jpg";
 
 const rootDiv = document.getElementById("root");
 

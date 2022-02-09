@@ -16,7 +16,7 @@ export default function App() {
     const hour = date.getHours();
     const [city, setCity] = useState("");
     const [isLoading, setIsLoading] = useState(true);
-    const KEY = "901e40fd5b5041939f2212329222701";
+    const KEY = process.env.API_KEY;
 
     function handleChange(event) {
         setCity(event.target.value);
@@ -46,7 +46,8 @@ export default function App() {
                         type="text" name="city" onChange={handleChange}
                         value={city} placeholder="Search location" required
                     />
-                    <MdOutlineAddLocationAlt id="search-icon" className="icon" onClick={handleCLick} />
+                    <MdOutlineAddLocationAlt id="search-icon" className="icon" />
+                    <button onClick={handleCLick} className="text-center">Search</button>
                 </div>
             </section>
             <section id="weather-info" className="flex-style">
@@ -77,67 +78,97 @@ export default function App() {
                             }
                             tempText={
                                 isLoading ? "." :
-                                data.forecast.forecastday[0].hour[hour].temp_c
+                                    hour < 19 ?
+                                        data.forecast.forecastday[0].hour[hour].temp_c :
+                                        hour >= 19 ?
+                                            data.forecast.forecastday[0].hour[19].temp_c : ""
                             }
                             source={
                                 isLoading ? "" :
-                                setWeatherImgs(data.forecast.forecastday[0].hour[hour].condition.text)
+                                    hour < 19 ?
+                                        setWeatherImgs(data.forecast.forecastday[0].hour[hour].condition.text) :
+                                        hour >= 19 ?
+                                            setWeatherImgs(data.forecast.forecastday[0].hour[19].condition.text) : ""
                             }
                             alt="weather widget"
                         />
                         <WeatherCondition
                             hourText={
-                                hour < 19 ? setWeatherHour(hour) : "20pm"
+                                hour < 19 ? setWeatherHour(hour + 1) : "20pm"
                             }
                             tempText={
                                 isLoading ? "." :
-                                data.forecast.forecastday[0].hour[hour].temp_c
+                                    hour < 19 ?
+                                        data.forecast.forecastday[0].hour[hour].temp_c :
+                                        hour >= 19 ?
+                                            data.forecast.forecastday[0].hour[20].temp_c : ""
                             }
                             source={
                                 isLoading ? "" :
-                                setWeatherImgs(data.forecast.forecastday[0].hour[hour].condition.text)
+                                    hour < 19 ?
+                                        setWeatherImgs(data.forecast.forecastday[0].hour[hour].condition.text) :
+                                        hour >= 19 ?
+                                            setWeatherImgs(data.forecast.forecastday[0].hour[20].condition.text) : ""
                             }
                             alt="weather widget"
                         />
                         <WeatherCondition
                             hourText={
-                                hour < 19 ? setWeatherHour(hour) : "21pm"
+                                hour < 19 ? setWeatherHour(hour + 2) : "21pm"
                             }
                             tempText={
                                 isLoading ? "." :
-                                data.forecast.forecastday[0].hour[hour].temp_c
+                                    hour < 19 ?
+                                        data.forecast.forecastday[0].hour[hour].temp_c :
+                                        hour >= 19 ?
+                                            data.forecast.forecastday[0].hour[21].temp_c : ""
                             }
                             source={
                                 isLoading ? "" :
-                                setWeatherImgs(data.forecast.forecastday[0].hour[hour].condition.text)
+                                    hour < 19 ?
+                                        setWeatherImgs(data.forecast.forecastday[0].hour[hour].condition.text) :
+                                        hour >= 19 ?
+                                            setWeatherImgs(data.forecast.forecastday[0].hour[21].condition.text) : ""
                             }
                             alt="weather widget"
                         />
                         <WeatherCondition
                             hourText={
-                                hour < 19 ? setWeatherHour(hour) : "22pm"
+                                hour < 19 ? setWeatherHour(hour + 3) : "22pm"
                             }
                             tempText={
                                 isLoading ? "." :
-                                data.forecast.forecastday[0].hour[hour].temp_c
+                                    hour < 19 ?
+                                        data.forecast.forecastday[0].hour[hour].temp_c :
+                                        hour >= 19 ?
+                                            data.forecast.forecastday[0].hour[22].temp_c : ""
                             }
                             source={
                                 isLoading ? "" :
-                                setWeatherImgs(data.forecast.forecastday[0].hour[hour].condition.text)
+                                    hour < 19 ?
+                                        setWeatherImgs(data.forecast.forecastday[0].hour[hour].condition.text) :
+                                        hour >= 19 ?
+                                            setWeatherImgs(data.forecast.forecastday[0].hour[22].condition.text) : ""
                             }
                             alt="weather widget"
                         />
                         <WeatherCondition
                             hourText={
-                                hour < 19 ? setWeatherHour(hour) : "23pm"
+                                hour < 19 ? setWeatherHour(hour + 4) : "23pm"
                             }
                             tempText={
                                 isLoading ? "." :
-                                data.forecast.forecastday[0].hour[hour].temp_c
+                                    hour < 19 ?
+                                        data.forecast.forecastday[0].hour[hour].temp_c :
+                                        hour >= 19 ?
+                                            data.forecast.forecastday[0].hour[23].temp_c : ""
                             }
                             source={
                                 isLoading ? "" :
-                                setWeatherImgs(data.forecast.forecastday[0].hour[hour].condition.text)
+                                    hour < 19 ?
+                                        setWeatherImgs(data.forecast.forecastday[0].hour[hour].condition.text) :
+                                        hour >= 19 ?
+                                            setWeatherImgs(data.forecast.forecastday[0].hour[23].condition.text) : ""
                             }
                             alt="weather widget"
                         />
@@ -197,7 +228,7 @@ export default function App() {
                         }
                         text4={
                             isLoading ? "..." :
-                                `${data.forecast.forecastday[1].day.mintemp_c}°C`
+                                `${data.forecast.forecastday[1].day.maxtemp_c}°C`
                         }
                         text5={
                             isLoading ? "..." :
@@ -205,7 +236,7 @@ export default function App() {
                         }
                         text6={
                             isLoading ? "..." :
-                                `${data.forecast.forecastday[2].day.mintemp_c}°C`
+                                `${data.forecast.forecastday[2].day.maxtemp_c}°C`
                         }
                     />
                 </div>
